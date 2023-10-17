@@ -5,19 +5,26 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ElevatorSubsystem;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class ManualArmCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
 
+  private DoubleSupplier speedSupplier; 
+
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ManualArmCommand(ElevatorSubsystem elevatorSubsystem) {
+  public ManualArmCommand(ElevatorSubsystem elevatorSubsystem, DoubleSupplier speedSupplier) {
     this.elevatorSubsystem = elevatorSubsystem;
+    this.speedSupplier = speedSupplier;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }

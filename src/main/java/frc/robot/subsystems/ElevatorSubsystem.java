@@ -21,6 +21,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
+  private double targetHeight;  
+
+  private double motorPower;
+
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
    
@@ -56,9 +60,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
+  public void setMotorPower(double motorPower){
+    this.motorPower = motorPower;
+  }
+
   @Override
   public void periodic() {
- 
+    right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
   }
 
 
