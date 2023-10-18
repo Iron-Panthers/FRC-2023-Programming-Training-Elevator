@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -22,6 +24,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
   /** Creates a new ElevatorSubsystem. */
+  private double targetHeight;
+  private double motorPower;
+
   public ElevatorSubsystem() {
    
     right_motor.configFactoryDefault();
@@ -56,9 +61,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
+    public void setMotorPower(double motorPower){
+    this.motorPower = MathUtil.clamp(motorPower, 0d, 0.25);
+  }
   @Override
   public void periodic() {
- 
+    right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
   }
 
 
