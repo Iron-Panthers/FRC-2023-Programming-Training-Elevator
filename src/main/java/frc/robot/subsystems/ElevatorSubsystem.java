@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -18,12 +20,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   private TalonFX left_motor;
   /** leader */
   private TalonFX right_motor;
-
+  private PIDController pidController;
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
+
+  private double targetHeight;
+  private double motorPower;
+  
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
-   
+    left_motor = new TalonFX(7);
+    right_motor = new TalonFX(6);
     right_motor.configFactoryDefault();
     left_motor.configFactoryDefault();
 
@@ -48,18 +55,41 @@ public class ElevatorSubsystem extends SubsystemBase {
     left_motor.setNeutralMode(NeutralMode.Brake);
 
     left_motor.follow(right_motor);
-
-    ElevatorTab.addNumber("test", () -> 3);
+    targetHeight = 0d;
+    ElevatorTab.addNumber("Current motor power", () -> this.motorPower);
+    ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
 
-  }
 
+  pidController = new PIDController(0.005,0, 0.00017);
+
+  }
+  public void setMotorPower(double motorPower){
+    
+    this.motorPower = MathUtil.clamp(motorPower,-0.25,0.25); 
+
+  }
   @Override
   public void periodic() {
- 
+    final double pidOutput = pidController.calculate(getCurrentHeight(), targetHeight);
+   right_motor.set(TalonFXControlMode.PercentOutput, pidOutput );   
+    right_motor.set(TalonFXControlMode.PercentOutput, motorPower); 
+
   }
+
+  public double getCurrentHeight() {     
+    //MATH ABOUT THE HEIGHT NEEDS TO GO HERE                                              
+    return armEncoder.getAbsolutePosition(); }                                 
+                                                                               
+  public double getTargetHeight() {                                             
+    return targetHeight; }                                                   
+                                                                               
+  // Sets the goal of the pid controller                                       
+  public void setAngle(double desiredAngle) {                                  
+    this.targetHeight = desiredAngle; } // Set the setpoint of the PIDController
+                                          
 
 
 }
