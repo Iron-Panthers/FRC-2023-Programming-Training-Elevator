@@ -65,7 +65,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
   public void setMotorPower(double motorPower){
-    this.motorPower = MathUtil.clamp(motorPower, 0d, 0.5);
+    this.motorPower = MathUtil.clamp(motorPower, -0.25, 0.5);
   }
   @Override
   public void periodic() {
