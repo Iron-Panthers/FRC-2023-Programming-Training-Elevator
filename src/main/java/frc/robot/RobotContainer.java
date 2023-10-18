@@ -42,7 +42,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureButtonBindings() {
-   
+   configureButtonBindings();
+   elevatorSubsystem.setDefaultCommand(new ManualArmCommand (elevatorSubsystem, driverA:: getLeftY));
 
     
   }
