@@ -54,16 +54,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
 
-   
-
+    right_motor.follow(left_motor);
+    
     targetHeight = 0;
 
     motorPower = 0;
 
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
+        
 
-    
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
 
@@ -82,13 +82,25 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    final double pidOutput = pidController.calculate(getCurrentHeight(), targetHeight);
-   right_motor.set(TalonFXControlMode.PercentOutput, pidOutput );   
-    right_motor.set(TalonFXControlMode.PercentOutput, motorPower); 
+    left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+
+    // left_motor.follow(right_motor);
+    // right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+    // left_motor.follow(right_motor);
+
+    //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+    final double pidOutput = pidController.calculate(getCurrentHeight(), targetHeight); 
+    left_motor.set(TalonFXControlMode.PercentOutput, pidOutput );   
+
 
   }
 
-  public double getCurrentHeight() {     
+  public double getCurrentHeight() {    
+    //Get angle of motor
+    //if 1 rotation = one chain length and full height is 3; 
+    //height = 0
+    //if speed 
+    //If want to go to 10% set desired height to 10  
     //MATH ABOUT THE HEIGHT NEEDS TO GO HERE                                              
     return armEncoder.getAbsolutePosition(); }                                 
                                                                                
