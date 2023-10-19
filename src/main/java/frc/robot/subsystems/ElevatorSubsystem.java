@@ -56,6 +56,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
 
+    right_motor.follow(left_motor);
    
 
     targetHeight = 0;
@@ -83,7 +84,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
    
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-    right_motor.follow(left_motor);
     // left_motor.follow(right_motor);
     // right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
     // left_motor.follow(right_motor);
