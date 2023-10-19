@@ -15,6 +15,8 @@ public class ManualArmCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
   private DoubleSupplier speedSupplier;
 
+  private DoubleSupplier speedSupplier; 
+
   /**
    * Creates a new ExampleCommand.
    *
@@ -23,6 +25,10 @@ public class ManualArmCommand extends CommandBase {
   public ManualArmCommand(ElevatorSubsystem elevatorSubsystem, DoubleSupplier speedSupplier) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.speedSupplier = speedSupplier;
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }
@@ -35,7 +41,11 @@ public class ManualArmCommand extends CommandBase {
   @Override
   public void execute() {
     double speed = speedSupplier.getAsDouble();
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> main
 
     elevatorSubsystem.setMotorPower(speed);
   }
