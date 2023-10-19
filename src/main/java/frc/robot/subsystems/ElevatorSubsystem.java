@@ -51,13 +51,22 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setSelectedSensorPosition(0);
 
     // make sure we hold our height when we get disabled
-    right_motor.setNeutralMode(NeutralMode.Brake);
-    left_motor.setNeutralMode(NeutralMode.Brake);
+    right_motor.setNeutralMode(NeutralMode.Coast);
+    left_motor.setNeutralMode(NeutralMode.Coast);
 
-    left_motor.follow(right_motor);
-    targetHeight = 0d;
-    ElevatorTab.addNumber("Current motor power", () -> this.motorPower);
+   
+
+    targetHeight = 0;
+
+    motorPower = 0;
+
+    ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
+
+    
+    ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
+    ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
+
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
