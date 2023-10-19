@@ -13,7 +13,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class ManualArmCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
+<<<<<<< HEAD
   private DoubleSupplier speedSupplier;
+=======
+
+  private DoubleSupplier speedSupplier; 
+
+>>>>>>> main
   /**
    * Creates a new ExampleCommand.
    *
@@ -21,6 +27,8 @@ public class ManualArmCommand extends CommandBase {
    */
   public ManualArmCommand(ElevatorSubsystem elevatorSubsystem, DoubleSupplier speedSupplier) {
     this.elevatorSubsystem = elevatorSubsystem;
+    this.speedSupplier = speedSupplier;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }
@@ -33,6 +41,11 @@ public class ManualArmCommand extends CommandBase {
   @Override
   public void execute() {
     double speed = speedSupplier.getAsDouble();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main
     elevatorSubsystem.setMotorPower(speed);
   }
 
