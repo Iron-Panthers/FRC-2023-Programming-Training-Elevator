@@ -31,7 +31,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureButtonBindings();
 
-    elevatorSubsystem.setDefaultCommand(new ManualArmCommand(elevatorSubsytem, ));
+    elevatorSubsystem.setDefaultCommand(new ManualArmCommand(elevatorSubsystem, driverA::getLeftY));
   }
 
   /**
