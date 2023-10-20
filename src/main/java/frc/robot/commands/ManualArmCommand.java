@@ -14,12 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ManualArmCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
 
-<<<<<<< HEAD
   private DoubleSupplier speedSupplier;
-=======
-  private DoubleSupplier speedSupplier; 
-
->>>>>>> main
   /**
    * Creates a new ExampleCommand.
    *
@@ -28,10 +23,6 @@ public class ManualArmCommand extends CommandBase {
   public ManualArmCommand(ElevatorSubsystem elevatorSubsystem, DoubleSupplier speedSupplier) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.speedSupplier = speedSupplier;
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }
@@ -42,19 +33,12 @@ public class ManualArmCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-<<<<<<< HEAD
-  public void execute() {}
-  double speed = speedSupplier.getAsDouble();
-=======
   public void execute() {
     double speed = speedSupplier.getAsDouble();
 
-
     elevatorSubsystem.setMotorPower(speed);
   }
->>>>>>> main
 
-  elevatorSubsystem.setMotorPower(speed);
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
