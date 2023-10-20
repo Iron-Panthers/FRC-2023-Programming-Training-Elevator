@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants;
 public class ElevatorSubsystem extends SubsystemBase {
   /** follower */
   private TalonFX left_motor;
@@ -25,6 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double targetHeight;
   private double motorPower;
+  private double inPerTick;
   
 
   /** Creates a new ElevatorSubsystem. */
@@ -33,7 +34,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor = new TalonFX(6);
     right_motor.configFactoryDefault();
     left_motor.configFactoryDefault();
-
+  
     right_motor.clearStickyFaults();
     left_motor.clearStickyFaults();
 
@@ -74,13 +75,32 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   pidController = new PIDController(0.005,0, 0.00017);
 
+
   }
   public void setMotorPower(double motorPower){
     
     this.motorPower = MathUtil.clamp(motorPower,-0.25,0.25); 
 
   }
-  @Override
+  
+
+  public double ticksToInches(double ticks) {    
+
+    return ticks * Constants.Elevator.GEAR_RATIO*Constants.Elevator.GEAR_CIRCUMFERENCE/Constants.Elevator.TICKS_PER_REVOLUTION; 
+  }     
+    public double inchesToTicks(double inches) {    
+
+    return inches*Constants.Elevator.TICKS_PER_REVOLUTION/Constants.Elevator.GEAR_RATIO*Constants.Elevator.GEAR_CIRCUMFERENCE; 
+  }                               
+                                                                               
+  public double getTargetHeight() {                                             
+    return targetHeight; }                                                   
+                                                                               
+  // Sets the goal of the pid controller                                       
+  public void setAngle(double desiredAngle) {                                  
+    this.targetHeight = desiredAngle; } // Set the setpoint of the PIDController
+                                          
+@Override
   public void periodic() {
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
@@ -94,23 +114,5 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
   }
-
-  public double getCurrentHeight() {    
-    //Get angle of motor
-    //if 1 rotation = one chain length and full height is 3; 
-    //height = 0
-    //if speed 
-    //If want to go to 10% set desired height to 10  
-    //MATH ABOUT THE HEIGHT NEEDS TO GO HERE                                              
-    return armEncoder.getAbsolutePosition(); }                                 
-                                                                               
-  public double getTargetHeight() {                                             
-    return targetHeight; }                                                   
-                                                                               
-  // Sets the goal of the pid controller                                       
-  public void setAngle(double desiredAngle) {                                  
-    this.targetHeight = desiredAngle; } // Set the setpoint of the PIDController
-                                          
-
 
 }

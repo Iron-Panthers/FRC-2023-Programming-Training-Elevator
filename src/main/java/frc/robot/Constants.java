@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+    
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -15,5 +15,14 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+  }
+  public static class Elevator{
+    /**the gear ratio of the motor to the final gear revolutions */
+    public static final double GEAR_RATIO = 12.75;
+    /**The number of ticks per motor revolution */
+    public static final double TICKS_PER_REVOLUTION = 2048;
+    /**The gear circumferance for distance */
+    public static final double GEAR_CIRCUMFERENCE = 1.5*Math.PI;
+    
   }
 }
