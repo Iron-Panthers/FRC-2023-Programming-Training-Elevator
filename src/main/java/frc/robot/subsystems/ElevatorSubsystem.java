@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants;
 public class ElevatorSubsystem extends SubsystemBase {
   /** follower */
   private TalonFX left_motor;
@@ -56,7 +56,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
 
-   
+    right_motor.follow(left_motor);
 
     targetHeight = 0;
 
@@ -79,16 +79,20 @@ public class ElevatorSubsystem extends SubsystemBase {
     this.motorPower = MathUtil.clamp(motorPower, -0.25, 0.25);
   }
 
+  public double inchesToTicks(double inches){
+
+    return inches * Constants.Elevator.TICKS_PER_REVOLUTION / (Constants.Elevator.GEAR_RATIO * Constants.Elevator.GEAR_CIRCUMFERENCE); 
+  }
+
+  public double ticksToInches(double ticks){
+    return (ticks * Constants.Elevator.GEAR_RATIO * Constants.Elevator.GEAR_CIRCUMFERENCE) / Constants.Elevator.TICKS_PER_REVOLUTION;
+  }
+
   @Override
   public void periodic() {
    
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-    right_motor.follow(left_motor);
-    // left_motor.follow(right_motor);
-    // right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-    // left_motor.follow(right_motor);
-
-    //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+   
   }
 
 
