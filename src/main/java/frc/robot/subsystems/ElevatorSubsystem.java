@@ -30,8 +30,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
 
-
-    
     left_motor = new TalonFX(7);
     right_motor = new TalonFX(6);
    
@@ -57,8 +55,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     // make sure we hold our height when we get disabled
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
-
    
+    right_motor.follow(left_motor);
 
     targetHeight = 0;
 
@@ -80,12 +78,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setMotorPower(double motorPower){
     this.motorPower = MathUtil.clamp(motorPower, -0.25, 0.25);
   }
-
+  
   @Override
   public void periodic() {
    
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-    right_motor.follow(left_motor);
     // left_motor.follow(right_motor);
     // right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
     // left_motor.follow(right_motor);
