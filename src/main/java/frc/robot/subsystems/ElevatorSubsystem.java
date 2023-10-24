@@ -23,8 +23,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
-  private double currentHeight;
-  private double targetHeight;  
+  private double targetHeight;
 
   private double motorPower;
 
@@ -35,7 +34,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     left_motor = new TalonFX(7);
     right_motor = new TalonFX(6);
-   
+
     right_motor.configFactoryDefault();
     left_motor.configFactoryDefault();
 
@@ -59,7 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
 
-    right_motor.follow(left_motor);
+
 
     targetHeight = 0;
 
@@ -80,9 +79,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
-  public void setMotorPower(double motorPower){
+public void setMotorPower(double motorPower){
     this.motorPower = MathUtil.clamp(motorPower, -0.25, 0.25);
-  }
+}
 
   public double inchesToTicks(double inches){
 
@@ -108,8 +107,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-   
+    right_motor.follow(left_motor);
+    // left_motor.follow(right_motor);
+    // right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+    // left_motor.follow(right_motor);
+
+    //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+    }
+
+
   }
-
-
-}
