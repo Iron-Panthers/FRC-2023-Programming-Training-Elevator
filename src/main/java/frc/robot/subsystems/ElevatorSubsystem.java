@@ -68,7 +68,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     motorPower = 0;
 
-    controller = new PIDController(0, 0, 0);
+    controller = new PIDController(0.048, 0.006, 0.03);
 
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
@@ -106,7 +106,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
 
     motorPower = controller.calculate(currentHeight);
-   
+
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
     // left_motor.follow(right_motor);

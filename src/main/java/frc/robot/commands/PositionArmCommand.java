@@ -26,6 +26,7 @@ public class PositionArmCommand extends CommandBase {
   @Override
   public void initialize() {
     elevatorSubsystem.setHeight(10);
+    
     }
 
   // Called every time the scheduler runs while the command is scheduled.
