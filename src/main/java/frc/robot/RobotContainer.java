@@ -5,7 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ManualArmCommand;
+import frc.robot.commands.ElevatorManualCommand;
+import frc.robot.commands.ElevatorPositionCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -31,7 +32,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureButtonBindings();
 
-    elevatorSubsystem.setDefaultCommand(new ManualArmCommand(elevatorSubsystem, driverA::getLeftY));
+
   }
 
   /**
@@ -44,9 +45,22 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureButtonBindings() {
-   
-
     
+    driverA.y().whileTrue(
+            new ElevatorManualCommand(
+                elevatorSubsystem, Constants.Elevator.RATE)); // Makes elevator go up manually
+    
+    driverA.a().whileTrue(
+            new ElevatorManualCommand(
+                elevatorSubsystem, -Constants.Elevator.RATE)); // Makes elevator go up manually
+
+
+    driverA.b().onTrue( new ElevatorPositionCommand(
+                  elevatorSubsystem, Constants.Elevator.maxHeight));
+
+    driverA.x().onTrue( new ElevatorPositionCommand(
+                  elevatorSubsystem, Constants.Elevator.maxHeight));
+        
   }
 
   /**

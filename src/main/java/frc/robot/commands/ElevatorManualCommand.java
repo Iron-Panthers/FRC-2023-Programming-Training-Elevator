@@ -4,29 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-/** An example command that uses an example subsystem. */
-public class ManualArmCommand extends CommandBase {
-  private final ElevatorSubsystem elevatorSubsystem;
-
-  private DoubleSupplier speedSupplier; 
-
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public ManualArmCommand(ElevatorSubsystem elevatorSubsystem, DoubleSupplier speedSupplier) {
-    this.elevatorSubsystem = elevatorSubsystem;
-    this.speedSupplier = speedSupplier;
+public class ElevatorManualCommand extends CommandBase {
+  private ElevatorSubsystem elevatorSubsystem;
+  private final Double rate;
+  /** Creates a new ElevatorCommand. */
+  public ElevatorManualCommand(ElevatorSubsystem subsystem, Double rate) {
+    this.rate = rate;
+    this.elevatorSubsystem = subsystem;
+    addRequirements(elevatorSubsystem);
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -36,10 +26,8 @@ public class ManualArmCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = speedSupplier.getAsDouble();
-
-
-    elevatorSubsystem.setMotorPower(speed);
+    // SmartDashboard.putNumber("rate", rate);
+    elevatorSubsystem.setTargetHeight(elevatorSubsystem.getTargetHeight() + rate);
   }
 
   // Called once the command ends or is interrupted.

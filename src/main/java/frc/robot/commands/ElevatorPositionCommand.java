@@ -4,31 +4,32 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ElevatorSubsystem;
 
-/** An example command that uses an example subsystem. */
-public class PositionArmCommand extends CommandBase {
+public class ElevatorPositionCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
+  private final Double targetHeight;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public PositionArmCommand(ElevatorSubsystem elevatorSubsystem) {
-    this.elevatorSubsystem = elevatorSubsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
+  /** Creates a new ElevatorCommand. */
+  public ElevatorPositionCommand(ElevatorSubsystem subsystem, Double targetHeight) {
+    this.elevatorSubsystem = subsystem;
     addRequirements(elevatorSubsystem);
+    this.targetHeight = targetHeight;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevatorSubsystem.setTargetHeight(targetHeight);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    // get current height
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -40,3 +41,10 @@ public class PositionArmCommand extends CommandBase {
     return false;
   }
 }
+
+// 12.75 full motor rotations = 1.5pi inches of height
+
+// 12.75:1 gear ratio
+// talonfx to the entire thing
+// Big gear is 2.6 inches
+// 1.5 sprocket diameter
