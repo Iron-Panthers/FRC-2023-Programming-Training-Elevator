@@ -23,9 +23,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
+  private double currentHeight;
   private double targetHeight;  
 
   private double motorPower;
+
+  private PIDController controller;
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -62,6 +65,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     motorPower = 0;
 
+    controller = new PIDController(0, 0, 0);
+
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
 
@@ -88,9 +93,20 @@ public class ElevatorSubsystem extends SubsystemBase {
     return (ticks * Constants.Elevator.GEAR_RATIO * Constants.Elevator.GEAR_CIRCUMFERENCE) / Constants.Elevator.TICKS_PER_REVOLUTION;
   }
 
+  public void setHeight(double targetHeight){
+    this.targetHeight = targetHeight;
+
+    controller.setSetpoint(targetHeight);
+  }
+
   @Override
   public void periodic() {
+
+    currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
    
+    motorPower = controller.calculate(currentHeight);
+
+
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
    
   }
