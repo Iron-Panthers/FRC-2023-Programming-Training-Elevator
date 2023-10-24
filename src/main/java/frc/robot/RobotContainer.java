@@ -30,7 +30,10 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureButtonBindings();
+
+    elevatorSubsystem.setDefaultCommand(new ManualArmCommand (elevatorSubsystem, driverA:: getLeftY)); 
   }
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -42,12 +45,12 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureButtonBindings() {
-   configureButtonBindings();
-   elevatorSubsystem.setDefaultCommand(new ManualArmCommand (elevatorSubsystem, driverA:: getLeftY));
-
+   
+    //if this button is pressed,
+    //run this command, to set the target height to ___
+    //Position Arm Command
     
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
