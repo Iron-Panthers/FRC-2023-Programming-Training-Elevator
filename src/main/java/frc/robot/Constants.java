@@ -16,4 +16,14 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  
+  public static class Elevator {
+    public static final double GEAR_RATIO = 12.75;
+
+    /**The number of ticks per motor revolution */
+    public static final double TICKS_PER_REVOLUTION = 2048;
+
+    public static final double GEAR_CIRCUMFERENCE = 1.5 * Math.PI;
+
+  }
 }

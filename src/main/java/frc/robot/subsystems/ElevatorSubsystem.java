@@ -4,9 +4,12 @@
 
 package frc.robot.subsystems;
 
+import javax.swing.text.html.MinimalHTMLWriter;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -14,18 +17,26 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  /** follower */
-  private TalonFX left_motor;
   /** leader */
+  private TalonFX left_motor;
+  /** follower */
   private TalonFX right_motor;
 
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
   private double targetHeight;  
+  private double currentHeight;
+  private final double maxHeight;
+  private final double minHeight;
+  /* ALL IN INCHES!!!! :) */
 
   private double motorPower;
+
+  //PID
+  private PIDController controller;
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -44,6 +55,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // right_motor.configReverseSoftLimitThreshold(
     //     -heightToTicks(24), 0); // this is the top limit, we stop at the very top
 
+    //MOTOR SETUP
     right_motor.configForwardSoftLimitEnable(true, 0);
     right_motor.configReverseSoftLimitEnable(true, 0);
 
@@ -55,17 +67,24 @@ public class ElevatorSubsystem extends SubsystemBase {
     // make sure we hold our height when we get disabled
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
-   
     right_motor.follow(left_motor);
 
-    targetHeight = 0;
+    //HEIGHTS
+    targetHeight = 0d;
+    maxHeight = 60d;
+    minHeight = 0d;
 
+    //MOTORS
     motorPower = 0;
 
+    //PID
+    controller = new PIDController(.01, 0, 0.01);
+
+
+    //DEBUG
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
 
-    
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
 
@@ -75,19 +94,39 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
+  //SETTERS
   public void setMotorPower(double motorPower){
     this.motorPower = MathUtil.clamp(motorPower, -0.25, 0.25);
   }
-  
+
+  public void setTargetHeight(double targetHeight){
+    this.targetHeight = MathUtil.clamp(targetHeight, minHeight, maxHeight);
+
+    controller.setSetpoint(this.targetHeight);
+  }
+
+
+  //CONVERTERS
+  public double inchesToTicks(double inches){
+
+    return inches * Constants.Elevator.TICKS_PER_REVOLUTION / (Constants.Elevator.GEAR_RATIO * Constants.Elevator.GEAR_CIRCUMFERENCE); 
+  }
+
+  public double ticksToInches(double ticks){
+    return (ticks * Constants.Elevator.GEAR_RATIO * Constants.Elevator.GEAR_CIRCUMFERENCE) / Constants.Elevator.TICKS_PER_REVOLUTION;
+  }
+
   @Override
   public void periodic() {
    
-    left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-    // left_motor.follow(right_motor);
-    // right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-    // left_motor.follow(right_motor);
+    //calculate current height
+    currentHeight = ticksToInches(left_motor.getSelectedSensorPosition());
 
-    //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+    //calculate motor power using pid
+    motorPower = controller.calculate(currentHeight);
+
+    //set the motor speed
+    left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
   }
 
 
