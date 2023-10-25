@@ -26,7 +26,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double targetHeight;
   private double motorPower;
   private double inPerTick;
-  
+  private double minHeight;
+  private double maxHeight;
+  private double currentHeight;
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -58,7 +60,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.follow(left_motor);
     
     targetHeight = 0;
-
+    minHeight = 0;
+    maxHeight = 20;
     motorPower = 0;
 
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
@@ -73,16 +76,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
 
 
-  pidController = new PIDController(0.005,0, 0.00017);
+  pidController = new PIDController(0.05,0, 0.007);
 
 
   }
-  public void setMotorPower(double motorPower){
-    
-    this.motorPower = MathUtil.clamp(motorPower,-0.25,0.25); 
-
-  }
-  
+ public void setMotorPower(double x){
+  System.out.println("hello");
+ }
 
   public double ticksToInches(double ticks) {    
 
@@ -93,24 +93,31 @@ public class ElevatorSubsystem extends SubsystemBase {
     return inches*Constants.Elevator.TICKS_PER_REVOLUTION/Constants.Elevator.GEAR_RATIO*Constants.Elevator.GEAR_CIRCUMFERENCE; 
   }                               
                                                                                
-  public double getTargetHeight() {                                             
-    return targetHeight; }                                                   
+  public void setTargetHeight(double targetHeight) {     
+    this.targetHeight = MathUtil.clamp(targetHeight, minHeight, maxHeight);                                     
+    pidController.setSetpoint(this.targetHeight); }  
+          
+  public double getCurrentHeight(){
+    currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
+   
+    return pidController.calculate(currentHeight);
+
+  }                                           
                                                                                
   // Sets the goal of the pid controller                                       
-  public void setAngle(double desiredAngle) {                                  
-    this.targetHeight = desiredAngle; } // Set the setpoint of the PIDController
                                           
 @Override
   public void periodic() {
-    left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
+
 
     // left_motor.follow(right_motor);
     // right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
     // left_motor.follow(right_motor);
 
     //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
-    final double pidOutput = pidController.calculate(getCurrentHeight(), targetHeight); 
-    left_motor.set(TalonFXControlMode.PercentOutput, pidOutput );   
+
+    motorPower = pidController.calculate(getCurrentHeight(), targetHeight);
+    left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
 
   }
