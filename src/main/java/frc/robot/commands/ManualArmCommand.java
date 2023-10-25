@@ -21,6 +21,8 @@ public class ManualArmCommand extends CommandBase {
    */
   public ManualArmCommand(ElevatorSubsystem elevatorSubsystem, DoubleSupplier speedSupplier) {
     this.elevatorSubsystem = elevatorSubsystem;
+    this.speedSupplier = speedSupplier;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }
