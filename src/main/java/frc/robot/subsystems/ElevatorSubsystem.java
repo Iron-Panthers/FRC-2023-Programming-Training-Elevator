@@ -61,7 +61,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
 
-    targetHeight = 0;
+    targetHeight = 20;
 
     motorPower = 0;
 
