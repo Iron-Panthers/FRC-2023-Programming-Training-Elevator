@@ -100,7 +100,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     
     motorPower = controllerOutput;
     
-    right_motor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
+    right_motor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.25, 0.25));
   }
 
   private double getHeight() {

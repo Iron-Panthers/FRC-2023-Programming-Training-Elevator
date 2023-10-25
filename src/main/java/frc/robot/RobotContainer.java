@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ManualArmCommand;
+import frc.robot.commands.PositionArmCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -44,8 +45,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureButtonBindings() {
-   
-
+   driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem));
     
   }
 
