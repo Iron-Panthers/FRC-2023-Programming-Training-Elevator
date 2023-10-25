@@ -20,11 +20,14 @@ public class PositionArmCommand extends CommandBase {
     this.elevatorSubsystem = elevatorSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
+    elevatorSubsystem.setHeight(0);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevatorSubsystem.setHeight(0);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
