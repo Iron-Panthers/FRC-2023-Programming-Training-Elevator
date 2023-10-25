@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ManualArmCommand;
+import frc.robot.commands.PositionArmCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -47,9 +48,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
    
     //if this button is pressed,
+    driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem));
     //run this command, to set the target height to ___
     //Position Arm Command
-    
+
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
