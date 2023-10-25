@@ -95,7 +95,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     double ticks = right_motor.getSelectedSensorPosition();
 
     double motorPower = heightController.calculate(ticksToInches(ticks), targetHeight);
-    right_motor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
+    right_motor.set(TalonFXControlMode.PercentOutput, -MathUtil.clamp(motorPower, -0.75, 0.75));
   }
 
   private double getHeight() {
