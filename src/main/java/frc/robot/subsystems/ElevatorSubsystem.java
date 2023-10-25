@@ -100,7 +100,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public double getCurrentHeight(){
     currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
    
-    return pidController.calculate(currentHeight);
+    return currentHeight;
 
   }                                           
                                                                                
@@ -117,9 +117,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
     motorPower = pidController.calculate(getCurrentHeight(), targetHeight);
-    left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.75,0.75)));
-
-
+    left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.25,0.25)));
   }
 
 }
