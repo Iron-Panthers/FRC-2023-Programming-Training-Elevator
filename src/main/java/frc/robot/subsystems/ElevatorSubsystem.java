@@ -71,6 +71,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
 
+
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
@@ -117,7 +118,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
 
-        motorPower = pidController.calculate(getCurrentHeight(), targetHeight);
+        motorPower = pidController.calculate(getCurrentHeight());
     if (!pidController.atSetpoint()){
         left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.25,0.25)));
     }
