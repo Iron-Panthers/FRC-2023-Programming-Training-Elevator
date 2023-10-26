@@ -76,8 +76,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
 
 
-  pidController = new PIDController(0.05,0, 0.04);
-
+  pidController = new PIDController(0.05,0, 0.04); //I think P is WAY to big? went back and forth really fast, maybe D needs to be bigger
+  pidController.setTolerance(0.2,0.001);
 
   }
  public void setMotorPower(double x){
@@ -116,8 +116,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
-    motorPower = pidController.calculate(getCurrentHeight(), targetHeight);
-    left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.25,0.25)));
+
+        motorPower = pidController.calculate(getCurrentHeight(), targetHeight);
+    if (!pidController.atSetpoint()){
+        left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.25,0.25)));
+    }
   }
 
 }
