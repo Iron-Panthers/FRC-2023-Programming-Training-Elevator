@@ -76,7 +76,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
 
 
-  pidController = new PIDController(0.05,0, 0.04); //I think P is WAY to big? went back and forth really fast, maybe D needs to be bigger
+  pidController = new PIDController(0.02,0, 0.04); //I think P is WAY to big? went back and forth really fast, maybe D needs to be bigger
   pidController.setTolerance(0.2,0.001);
 
   }
