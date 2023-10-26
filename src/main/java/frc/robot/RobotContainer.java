@@ -49,6 +49,9 @@ public class RobotContainer {
    
     //if this button is pressed,
     driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem));
+    driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem));
+    driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem));
+    driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem));
     //run this command, to set the target height to ___
     //Position Arm Command
 
