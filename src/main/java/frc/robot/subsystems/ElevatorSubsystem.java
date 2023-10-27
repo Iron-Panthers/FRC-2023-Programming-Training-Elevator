@@ -70,6 +70,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
     ElevatorTab.addNumber("PID output", () -> this.controllerOutput);
+    ElevatorTab.addNumber("Current Height", this::getHeight);
     
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
@@ -104,7 +105,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   private double getHeight() {
-    return 0;
+    return ticksToInches(right_motor.getSelectedSensorPosition());
   }
   
 }
