@@ -47,7 +47,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
    
-    //if this button is pressed,
+    //if this button is pressed
     driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem));
     driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem));
     driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem));

@@ -72,6 +72,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
+    ElevatorTab.addNumber("Current Height", () -> this.currentHeight);
 
     
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
@@ -97,13 +98,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     this.targetHeight = targetHeight;
 
     controller.setSetpoint(targetHeight);
-
   }
   
+  public void getCurrentHeight(double currentHeight){
+    currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
+  }
+    
   @Override
   public void periodic() {
-
-    currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
 
     motorPower = controller.calculate(currentHeight);
 
