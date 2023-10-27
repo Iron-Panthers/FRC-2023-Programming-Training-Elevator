@@ -36,7 +36,7 @@ public PositionArmCommand(ElevatorSubsystem elevatorSubsystem){
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevatorSubsystem.setTargetHeight(20);
+    elevatorSubsystem.setTargetHeight(10);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

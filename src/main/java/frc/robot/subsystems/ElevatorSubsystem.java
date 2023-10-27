@@ -71,13 +71,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
-    ElevatorTab.addNumber("Right Motor Speed", pidController::getPositionError);
+    ElevatorTab.addNumber("Position Error", pidController::getPositionError);
 
-
+// hi nora - sincerely, evelyn =D
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
-
 
 
 
@@ -96,7 +95,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }                               
                                                                                
   public void setTargetHeight(double targetHeight) {     
-    this.targetHeight = MathUtil.clamp(targetHeight, minHeight, maxHeight);                                     
+    this.targetHeight = targetHeight;                                   
     pidController.setSetpoint(this.targetHeight); }  
           
   public double getCurrentHeight(){
