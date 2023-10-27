@@ -63,13 +63,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     minHeight = 0;
     maxHeight = 20;
     motorPower = 0;
-
+  pidController = new PIDController(0.02,0, 0.04); //I think P is WAY to big? went back and forth really fast, maybe D needs to be bigger
+  pidController.setTolerance(0.2,0.001);
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
         
 
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
+    ElevatorTab.addNumber("Right Motor Speed", pidController::getPositionError);
 
 
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
@@ -77,8 +79,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
 
 
-  pidController = new PIDController(0.02,0, 0.04); //I think P is WAY to big? went back and forth really fast, maybe D needs to be bigger
-  pidController.setTolerance(0.2,0.001);
+
 
   }
  public void setMotorPower(double x){
