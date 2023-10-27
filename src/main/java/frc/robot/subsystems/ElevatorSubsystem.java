@@ -61,6 +61,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
 
+    right_motor.follow(left_motor);
+
     targetHeight = 20;
 
     motorPower = 0;
@@ -95,17 +97,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     
-    double ticks = right_motor.getSelectedSensorPosition();
+    double ticks = left_motor.getSelectedSensorPosition();
 
     controllerOutput = heightController.calculate(ticksToInches(ticks), targetHeight);
     
     motorPower = controllerOutput;
     
-    right_motor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
+    left_motor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
   }
 
   private double getHeight() {
-    return ticksToInches(right_motor.getSelectedSensorPosition());
+    return ticksToInches(left_motor.getSelectedSensorPosition());
   }
   
 }
