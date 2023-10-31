@@ -88,11 +88,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
   public double inchesToTicks(double inches){
     
-    return inches * Constants.Elevator.TICKS_PER_REVOLUTION / (Constants.Elevator.GEAR_RATIO * Constants.Elevator.GEAR_CIRCUMFERENCE);
+    return inches * ((Constants.Elevator.TICKS_PER_REVOLUTION * Constants.Elevator.GEAR_RATIO) / Constants.Elevator.GEAR_CIRCUMFERENCE);
   }
   public double ticksToInches(double ticks){
     
-    return ticks * Constants.Elevator.GEAR_RATIO / (Constants.Elevator.GEAR_CIRCUMFERENCE * Constants.Elevator.TICKS_PER_REVOLUTION);
+    return (ticks * Constants.Elevator.GEAR_CIRCUMFERENCE) / (Constants.Elevator.GEAR_RATIO * Constants.Elevator.TICKS_PER_REVOLUTION);
   }
   @Override
   public void periodic() {
