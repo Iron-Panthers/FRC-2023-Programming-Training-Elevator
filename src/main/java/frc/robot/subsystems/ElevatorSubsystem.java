@@ -57,17 +57,20 @@ public class ElevatorSubsystem extends SubsystemBase {
     left_motor.setSelectedSensorPosition(0);
     right_motor.setSelectedSensorPosition(0);
 
+    left_motor.setInverted(true);
+    right_motor.setInverted(true);
+
     // make sure we hold our height when we get disabled
     right_motor.setNeutralMode(NeutralMode.Coast);
     left_motor.setNeutralMode(NeutralMode.Coast);
 
     right_motor.follow(left_motor);
 
-    targetHeight = 20;
+    targetHeight = 10;
 
     motorPower = 0;
 
-    heightController = new PIDController(0.389, 0, 0.607);
+    heightController = new PIDController(0.15, 0, 0);
 
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
