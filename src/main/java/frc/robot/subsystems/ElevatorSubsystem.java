@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.Constants;
+import frc.robot.Constants.Elevator;
 public class ElevatorSubsystem extends SubsystemBase {
   /** follower */
   private TalonFX left_motor;
@@ -88,11 +88,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     this.motorPower = MathUtil.clamp(motorPower, -0.25, 0.25);
   }
 
-  public double inchesToTicks(double inches) {
-    return Constants.Elevator.TICKS_PER_REVOLUTION / (Constants.Elevator.GEAR_RATIO* Constants.Elevator.GEAR_CIRCUMFERENCE);
+  public static double inchesToTicks(double height) {
+    return height * ((Elevator.GEAR_RATIO * Elevator.TICKS) / (Elevator.GEAR_CIRCUMFERENCE));
   }
-  public double ticksToInches(double ticks){
-    return Constants.Elevator.GEAR_RATIO* Constants.Elevator.GEAR_CIRCUMFERENCE/Constants.Elevator.TICKS;
+  public static double ticksToInches(double ticks) {
+    return (ticks * Elevator.GEAR_CIRCUMFERENCE) / (Elevator.TICKS * Elevator.GEAR_RATIO);
   }
   public void setHeight(double targetHeight){
     this.targetHeight = targetHeight;
