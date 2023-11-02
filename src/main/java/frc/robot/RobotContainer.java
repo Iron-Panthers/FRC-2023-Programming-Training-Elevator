@@ -32,7 +32,10 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureButtonBindings();
 
-    driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem));
+    driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 20d));
+    driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 15d));
+    driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem, 10d));
+    driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem, 0d));
   }
 
   /**

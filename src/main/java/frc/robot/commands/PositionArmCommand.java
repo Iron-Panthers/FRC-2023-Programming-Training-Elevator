@@ -15,15 +15,14 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 /** An example command that uses an example subsystem. */
 public class PositionArmCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
-
-  /**
+  public double targetHeight;  /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
 
-public PositionArmCommand(ElevatorSubsystem elevatorSubsystem){
-
+public PositionArmCommand(ElevatorSubsystem elevatorSubsystem, double targetHeight){
+      this.targetHeight = targetHeight;
       this.elevatorSubsystem = elevatorSubsystem;
 
       addRequirements(elevatorSubsystem);
@@ -36,7 +35,7 @@ public PositionArmCommand(ElevatorSubsystem elevatorSubsystem){
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevatorSubsystem.setTargetHeight(10);
+    elevatorSubsystem.setTargetHeight(targetHeight);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
