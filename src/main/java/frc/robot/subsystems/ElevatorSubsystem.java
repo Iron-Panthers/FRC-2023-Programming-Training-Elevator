@@ -66,7 +66,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     right_motor.follow(left_motor);
 
-    targetHeight = 10;
+    targetHeight = 0;
 
     motorPower = 0;
 
@@ -96,6 +96,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public double ticksToInches(double ticks){
     
     return (ticks * Constants.Elevator.GEAR_CIRCUMFERENCE) / (Constants.Elevator.GEAR_RATIO * Constants.Elevator.TICKS_PER_REVOLUTION);
+  }
+  public void setTargetHeight(double targetHeightWanted){
+    targetHeight = targetHeightWanted;
   }
   @Override
   public void periodic() {

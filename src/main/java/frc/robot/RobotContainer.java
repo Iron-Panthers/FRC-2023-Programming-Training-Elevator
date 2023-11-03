@@ -45,7 +45,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureButtonBindings() {
-   driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem));
+   
+    driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem, 10));
+    driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 15));
     
   }
 
