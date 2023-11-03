@@ -16,19 +16,25 @@ public class PositionArmCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public PositionArmCommand(ElevatorSubsystem elevatorSubsystem) {
+  double def;
+  public PositionArmCommand(ElevatorSubsystem elevatorSubsystem, double definition) {
     this.elevatorSubsystem = elevatorSubsystem;
+    def = definition;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }
-
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+   
+      elevatorSubsystem.setTargetHeight(def);
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override
