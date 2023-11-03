@@ -48,6 +48,7 @@ public class RobotContainer {
    
     driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem, 10));
     driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 15));
+    driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 0));
     
   }
 
