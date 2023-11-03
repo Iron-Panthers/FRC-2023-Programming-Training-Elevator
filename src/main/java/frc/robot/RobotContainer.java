@@ -48,10 +48,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
    
     //if this button is pressed
-    driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem));
-    driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem));
-    driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem));
-    driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem));
+    driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem, 10));
+
+    
+    driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem, 4));
+    driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 2));
+    driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 8));
     //run this command, to set the target height to ___
     //Position Arm Command
 
