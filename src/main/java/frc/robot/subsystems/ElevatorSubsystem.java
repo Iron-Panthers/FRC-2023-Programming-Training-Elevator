@@ -60,7 +60,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     right_motor.follow(left_motor);
     
-    
+    targetHeight = 0;
     minHeight = 0;
     maxHeight = 20;
     motorPower = 0;
