@@ -78,7 +78,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     motorPower = 0;
 
     //PID
-    controller = new PIDController(.01, 0, 0.01);
+    controller = new PIDController(0.01, 0, 0.01);
 
 
     //DEBUG
@@ -87,6 +87,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
+
+    ElevatorTab.add(controller);
 
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
