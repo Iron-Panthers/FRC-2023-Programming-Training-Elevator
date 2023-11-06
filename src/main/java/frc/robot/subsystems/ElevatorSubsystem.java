@@ -78,7 +78,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     motorPower = 0;
 
     //PID
-    controller = new PIDController(0.01, 0, 0.01);
+    controller = new PIDController(0.02, 0, 0.01);
 
 
     //DEBUG
