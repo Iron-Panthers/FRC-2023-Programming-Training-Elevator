@@ -68,7 +68,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   pidController.setTolerance(0.2,0.001);
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
-        
+    ElevatorTab.add(pidController);
 
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
