@@ -17,15 +17,18 @@ public class PositionArmCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
 
   private Trigger aTrigger;
+  private Trigger bTrigger;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public PositionArmCommand(ElevatorSubsystem elevatorSubsystem, Trigger aTrigger) {
+  public PositionArmCommand(ElevatorSubsystem elevatorSubsystem, Trigger aTrigger, Trigger bTrigger) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.aTrigger = aTrigger;
+    this.bTrigger = bTrigger;
+
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
@@ -42,6 +45,8 @@ public class PositionArmCommand extends CommandBase {
   public void execute() {
     if(aTrigger.getAsBoolean()){
       elevatorSubsystem.setTargetHeight(20d);
+    }else if(bTrigger.getAsBoolean()){
+      elevatorSubsystem.setTargetHeight(10d);
     }
   }
 
