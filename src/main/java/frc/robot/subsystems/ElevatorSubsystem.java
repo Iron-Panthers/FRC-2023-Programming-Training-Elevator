@@ -82,6 +82,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
 
+    ElevatorTab.add(controller);
+
   }
 
   public void setMotorPower(double motorPower){
