@@ -55,8 +55,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.setSelectedSensorPosition(0);
 
     // make sure we hold our height when we get disabled
-    right_motor.setNeutralMode(NeutralMode.Coast);
-    left_motor.setNeutralMode(NeutralMode.Coast);
+    right_motor.setNeutralMode(NeutralMode.Brake);
+    left_motor.setNeutralMode(NeutralMode.Brake);
 
     right_motor.follow(left_motor);
     
@@ -118,10 +118,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
 
-        motorPower = pidController.calculate(getCurrentHeight());
+        motorPower = 0.1+ (pidController.calculate(getCurrentHeight()));
     if (!pidController.atSetpoint()){
         left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.5,0.5)));
     }
+    // left_motor.set(TalonFXControlMode.PercentOutput, -(0.1));
   }
 
 }
