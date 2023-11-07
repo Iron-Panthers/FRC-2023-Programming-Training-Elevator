@@ -64,7 +64,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     minHeight = 0;
     maxHeight = 20;
     motorPower = 0;
-  pidController = new PIDController(0.1,0, 0.02); 
+  pidController = new PIDController(0.5,0, 0.0); 
   pidController.setTolerance(0.2,0.001);
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
