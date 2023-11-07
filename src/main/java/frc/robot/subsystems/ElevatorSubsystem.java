@@ -108,7 +108,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 
-    motorPower = controller.calculate(currentHeight);
+    //motorPower = controller.calculate(currentHeight);
 
 
     left_motor.set(TalonFXControlMode.PercentOutput, -MathUtil.clamp(motorPower, -0.75, 0.75));
