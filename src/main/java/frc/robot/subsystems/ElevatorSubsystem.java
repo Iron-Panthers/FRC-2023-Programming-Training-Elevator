@@ -118,7 +118,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     //left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
 
 
-        motorPower = 0.07+ (pidController.calculate(getCurrentHeight()));
+        motorPower = pidController.calculate(getCurrentHeight());
     if (!pidController.atSetpoint()){
       if (currentHeight<5){
         left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.2,0.2)));
