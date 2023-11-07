@@ -51,7 +51,7 @@ public class RobotContainer {
     driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem, 13));
 
     
-    driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem, 10));
+    driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem, 8));
     driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 5));
     driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 15));
     //run this command, to set the target height to ___
