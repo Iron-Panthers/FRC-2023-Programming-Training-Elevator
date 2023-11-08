@@ -25,14 +25,43 @@ public class RobotContainer {
 
 
   private final CommandXboxController driverA = new CommandXboxController(0);
-
+  private double targetHeight;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureButtonBindings();
+    double[] levels={5d,10d,17d,8d,4d,7d,1d};
 
-    driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 20d));
+    for(double i :levels){
+      targetHeight = i;
+    }
+
+    
+    // driverA.rightTrigger().onTrue(new InstantCommand(()-> {
+    //   for (int i=0;i<levels.length; i++){
+    //     targetHeight = levels[i]; 
+    //     new PositionArmCommand(elevatorSubsystem, targetHeight);
+    //   }
+    //   }));
+
+    driverA.rightTrigger().onTrue(
+      new PositionArmCommand(elevatorSubsystem, 5).andThen(
+        new PositionArmCommand(elevatorSubsystem, 10).andThen(
+          new PositionArmCommand(elevatorSubsystem, 17).andThen(
+            new PositionArmCommand(elevatorSubsystem, 8).andThen(
+              new PositionArmCommand(elevatorSubsystem, 4).andThen(
+                new PositionArmCommand(elevatorSubsystem, 7).andThen(
+                  new PositionArmCommand(elevatorSubsystem, 1)
+                )
+              )
+            )
+          )
+        )
+      )
+
+    );
+    driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 20));
     driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 15d));
     driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem, 10d));
     driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem, 3d));

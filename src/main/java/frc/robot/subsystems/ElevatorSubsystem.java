@@ -65,7 +65,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     maxHeight = 20;
     motorPower = 0;
   pidController = new PIDController(0.4,0, 0.01); 
-  pidController.setTolerance(0.2,0.001);
+  //pidController.setTolerance(0.7,0.001);
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
     ElevatorTab.add(pidController);
@@ -104,7 +104,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     return currentHeight;
 
   }                                           
-                                                                               
+  public boolean nearTargetHeight(){
+    if(targetHeight-0.5<=currentHeight && currentHeight<=targetHeight-0.5)return true;
+    return false;
+
+  }                                                                       
   // Sets the goal of the pid controller                                       
                                           
 @Override
@@ -128,6 +132,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       }
         
     }
+    
     // left_motor.set(TalonFXControlMode.PercentOutput, -(0.1));
   }
 
