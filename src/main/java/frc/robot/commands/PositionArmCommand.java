@@ -16,18 +16,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class PositionArmCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
 
-  private Trigger aTrigger;
-  private Trigger bTrigger;
+  private double height;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public PositionArmCommand(ElevatorSubsystem elevatorSubsystem, Trigger aTrigger, Trigger bTrigger) {
+  public PositionArmCommand(ElevatorSubsystem elevatorSubsystem, double height) {
     this.elevatorSubsystem = elevatorSubsystem;
-    this.aTrigger = aTrigger;
-    this.bTrigger = bTrigger;
+    this.height = height;
 
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -37,17 +35,13 @@ public class PositionArmCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    elevatorSubsystem.setTargetHeight(height);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(aTrigger.getAsBoolean()){
-      elevatorSubsystem.setTargetHeight(20d);
-    }else if(bTrigger.getAsBoolean()){
-      elevatorSubsystem.setTargetHeight(10d);
-    }
+   
   }
 
   // Called once the command ends or is interrupted.

@@ -29,8 +29,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double targetHeight;  
   private double currentHeight;
-  private final double maxHeight;
-  private final double minHeight;
   /* ALL IN INCHES!!!! :) */
 
   private double motorPower;
@@ -71,14 +69,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     //HEIGHTS
     targetHeight = 0d;
-    maxHeight = 60d;
-    minHeight = 0d;
 
     //MOTORS
     motorPower = 0;
 
     //PID
-    controller = new PIDController(0.02, 0, 0.01);
+    controller = new PIDController(0.4,0, 0.01);
 
 
     //DEBUG
@@ -87,6 +83,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
+
+    ElevatorTab.addNumber("Height", right_motor::getSelectedSensorPosition);
 
     ElevatorTab.add(controller);
 
@@ -102,7 +100,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setTargetHeight(double targetHeight){
-    this.targetHeight = MathUtil.clamp(targetHeight, minHeight, maxHeight);
+    this.targetHeight = targetHeight;
 
     controller.setSetpoint(this.targetHeight);
   }
