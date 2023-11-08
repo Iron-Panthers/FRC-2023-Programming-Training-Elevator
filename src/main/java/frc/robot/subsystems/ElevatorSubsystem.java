@@ -58,8 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     right_motor.follow(left_motor);
     
     targetHeight = 0;
-    minHeight = 0;
-    maxHeight = 20;
+
     motorPower = 0;
   pidController = new PIDController(0.4,0, 0.01); 
   //pidController.setTolerance(0.7,0.001);
@@ -70,7 +69,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", right_motor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Position Error", pidController::getPositionError);
-
+    ElevatorTab.addBoolean("If is at target Height", this::nearTargetHeight);
 // hi nora - sincerely, evelyn =D
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
