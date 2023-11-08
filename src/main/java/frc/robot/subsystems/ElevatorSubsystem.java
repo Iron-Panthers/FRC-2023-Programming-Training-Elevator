@@ -26,10 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double targetHeight;
   private double motorPower;
-  private double inPerTick;
-  private double minHeight;
-  private double maxHeight;
-  private double currentHeight;
+
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -99,13 +96,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     pidController.setSetpoint(this.targetHeight); }  
           
   public double getCurrentHeight(){
-    currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
+    
    
-    return currentHeight;
+    return ticksToInches(-left_motor.getSelectedSensorPosition());
 
   }                                           
   public boolean nearTargetHeight(){
-    if(targetHeight-0.5<=currentHeight && currentHeight<=targetHeight-0.5)return true;
+    if(targetHeight-0.5<=getCurrentHeight() && getCurrentHeight()<=targetHeight-0.5)return true;
     return false;
 
   }                                                                       
@@ -124,7 +121,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         motorPower = pidController.calculate(getCurrentHeight());
     if (!pidController.atSetpoint()){
-      if (currentHeight<5){
+      if (getCurrentHeight()<5){
         left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower,-0.2,0.2)));
       }
       else{
