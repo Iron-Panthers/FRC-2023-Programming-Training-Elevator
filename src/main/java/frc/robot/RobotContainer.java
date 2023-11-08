@@ -49,15 +49,28 @@ public class RobotContainer {
    
     //if this button is pressed
     driverA.a().onTrue(new PositionArmCommand(elevatorSubsystem, 2));
-
-    
     driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem, 5));
     driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 11));
     driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 17));
+    
+    driverA.rightTrigger().onTrue(
+      new PositionArmCommand(elevatorSubsystem, 5).andThen(
+        new PositionArmCommand(elevatorSubsystem, 10).andThen(
+          new PositionArmCommand(elevatorSubsystem, 17).andThen(
+            new PositionArmCommand(elevatorSubsystem, 8).andThen(
+              new PositionArmCommand(elevatorSubsystem, 4). andThen(
+                new PositionArmCommand(elevatorSubsystem, 7).andThen(
+                  new PositionArmCommand(elevatorSubsystem, 1)
+              )
+            )
+          )
+        )
+      )
+    );
     //run this command, to set the target height to ___
     //Position Arm Command
-
   }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

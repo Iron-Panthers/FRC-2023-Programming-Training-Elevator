@@ -102,7 +102,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     controller.setSetpoint(targetHeight);
   }
   
-  
+  public boolean nearTargetHeight(){
+    if(targetHeight -0.5 <= currentHeight && currentHeight <= targetHeight +0.5){
+      return true;
+    }
+    return false;
+  }
   
     
   @Override
