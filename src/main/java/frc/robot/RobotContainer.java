@@ -47,20 +47,13 @@ public class RobotContainer {
 
     driverA.rightTrigger().onTrue(
       new PositionArmCommand(elevatorSubsystem, 5).andThen(
-        new PositionArmCommand(elevatorSubsystem, 10).andThen(
-          new PositionArmCommand(elevatorSubsystem, 17).andThen(
-            new PositionArmCommand(elevatorSubsystem, 8).andThen(
-              new PositionArmCommand(elevatorSubsystem, 4).andThen(
-                new PositionArmCommand(elevatorSubsystem, 7).andThen(
-                  new PositionArmCommand(elevatorSubsystem, 1)
-                )
-              )
-            )
-          )
-        )
-      )
-
-    );
+        new PositionArmCommand(elevatorSubsystem, 10)).andThen(
+          new PositionArmCommand(elevatorSubsystem, 17)).andThen(
+            new PositionArmCommand(elevatorSubsystem, 8)).andThen(
+              new PositionArmCommand(elevatorSubsystem, 4)).andThen(
+                new PositionArmCommand(elevatorSubsystem, 7)).andThen(
+                  new PositionArmCommand(elevatorSubsystem, 1)));
+                  
     driverA.y().onTrue(new PositionArmCommand(elevatorSubsystem, 20));
     driverA.x().onTrue(new PositionArmCommand(elevatorSubsystem, 15d));
     driverA.b().onTrue(new PositionArmCommand(elevatorSubsystem, 10d));

@@ -101,7 +101,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }                                           
   public boolean nearTargetHeight(){
-    if(targetHeight-0.5<=getCurrentHeight() && getCurrentHeight()<=targetHeight-0.5)return true;
+    if(targetHeight-0.5<=getCurrentHeight() && getCurrentHeight()<=targetHeight+0.5)return true;
     return false;
 
   }                                                                       
