@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -70,7 +72,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     motorPower = 0;
 
-    heightController = new PIDController(0.15, 0, 0);
+    heightController = new PIDController(0.4, 0, 0.0125);
 
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
@@ -83,7 +85,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // ElevatorTab.addNumber("height", () -> this.currentHeight);
     // ElevatorTab.addNumber("target height", () -> this.targetHeight);
     // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
-
+//heheheha
   }
 
     public void setMotorPower(double motorPower){
@@ -100,6 +102,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setTargetHeight(double targetHeightWanted){
     targetHeight = targetHeightWanted;
   }
+  public boolean nearTargetHeight(){
+    if(targetHeight - 0.5 <= getHeight() && getHeight() <= targetHeight + 0.5){
+      return true;
+    }
+    return false;
+  }
   @Override
   public void periodic() {
     
@@ -115,5 +123,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double getHeight() {
     return ticksToInches(left_motor.getSelectedSensorPosition());
   }
+
+  
   
 }
