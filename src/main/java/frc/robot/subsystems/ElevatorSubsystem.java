@@ -29,16 +29,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
-
-    left_motor = new TalonFX(7);
-    right_motor = new TalonFX(6);
-   
-    right_motor.configFactoryDefault();
-    left_motor.configFactoryDefault();
-
-    right_motor.clearStickyFaults();
-    left_motor.clearStickyFaults();
-
+ 
     right_motor.configForwardSoftLimitThreshold(
         0, 0); // this is the bottom limit, we stop AT the bottom
     // right_motor.configReverseSoftLimitThreshold(
