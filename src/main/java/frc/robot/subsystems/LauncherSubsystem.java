@@ -18,7 +18,7 @@ public class LauncherSubsystem extends SubsystemBase {
   right_motor = new TalonFX();
   int time = 0;
   double motorPower;
-  double launchMotorPower
+  double launchMotorPower;
   //(motor).set(TalonFXControlMode.PercentOutput, #);
   /** Creates a new LauncherSubsystem. */
   public LauncherSubsystem() {
@@ -32,15 +32,18 @@ public class LauncherSubsystem extends SubsystemBase {
   @Override
   //Periodic: Every 20 milliseconds it runs
   public void periodic() {
+    motorPower = 0;
     if(time < 150){
     motorPower = -0.5;
     }
-    if (time >= 150) {
-      motorPower = launchMotorPower;
+    if (time >= 150 && time < 300) {
+      motorpower = launchMotorPower;
+      motorPower = 0.75;
     } 
-    if (time == 300) {
-      time = 0
+    if (time == 550){
+      time = 0;
     }
+  
 
     left_motor.set(TalonFXControlMode.PercentOutput, motorPower);
     right_motor.set(TalonFXControlMode.PercentOutput, motorPower);
