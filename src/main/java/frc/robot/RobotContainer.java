@@ -43,10 +43,10 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
-  private void configureButtonBindings() {
-   
-
-    
+  private void configureButonBindings() {
+   driverA.a().onTrue(new AdjustIntensityCommand(launcherSubsystem, 0.1));
+   driverA.x().onTrue(new AdjustIntensityCommand(launcherSubsystem, 0.4));
+   driverA.y().onTrue(new AdjustIntensityCommand(launcherSubsystem, 1));
   }
 
   /**
